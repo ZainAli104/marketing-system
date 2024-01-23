@@ -1,9 +1,6 @@
 <?php
 include('db/connection.php');
-session_start();
-$firstName = $_SESSION['firstName'];
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

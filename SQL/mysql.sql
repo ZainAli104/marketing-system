@@ -2,8 +2,17 @@ CREATE DATABASE alphahub_db;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    firstName VARCHAR(255),
+    firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255),
-    email VARCHAR(255),
-    password VARCHAR(255)
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    message TEXT NOT NULL
 );

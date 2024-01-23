@@ -1,4 +1,8 @@
 <?php
+session_start();
+
+$firstName = $_SESSION['firstName'];
+
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: /marketing/index.php');

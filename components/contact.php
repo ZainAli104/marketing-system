@@ -1,3 +1,21 @@
+<?php
+include('../db/connection.php');
+
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
+$responseMsg = "";
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $phone = $_POST['phone'];
+    $message = $_POST['message'];
+
+    mysqli_query($db, "insert into contact (name,email,subject,phone,message)Values('$name','$email','$subject','$phone','$message')");
+
+    $responseMsg = "Your message has been sent successfully!";
+}
+?>
 
 <section class="section contact" id="contact">
     <div class="container">
@@ -8,26 +26,21 @@
             We are available for 24/7 for your help. You can contact us anytime.
         </p>
 
-        <form action="" class="contact-form">
+        <form action="" method="post" class="contact-form">
 
             <div class="input-wrapper">
-                <input type="text" name="name" aria-label="name" placeholder="Your name*" required
-                       class="input-field">
+                <input type="text" name="name" placeholder="Your name*" required class="input-field">
 
-                <input type="email" name="email_address" aria-label="email" placeholder="Email address*"
-                       required class="input-field">
+                <input type="email" name="email" placeholder="Email address*" required class="input-field" value="<?php echo $email ?>" readonly>
             </div>
 
             <div class="input-wrapper">
-                <input type="text" name="subject" aria-label="subject" placeholder="Subject"
-                       class="input-field">
+                <input type="text" name="subject" placeholder="Subject" class="input-field">
 
-                <input type="number" name="phone" aria-label="phone" placeholder="Phone number"
-                       class="input-field">
+                <input type="number" name="phone" placeholder="Phone number" class="input-field">
             </div>
 
-            <textarea name="message" aria-label="message" placeholder="Your message...*" required
-                      class="input-field"></textarea>
+            <textarea name="message" placeholder="Your message...*" required class="input-field"></textarea>
 
             <div class="checkbox-wrapper">
                 <input type="checkbox" name="terms_and_policy" id="terms" required class="checkbox">
@@ -38,7 +51,12 @@
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-primary">Send Message</button>
+            <?php if ($email) : ?>
+                <button type="submit" class="btn btn-primary" name="submit">Send Message</button>
+                <p style="color: green;"><?php echo $responseMsg; ?></p>
+            <?php else : ?>
+                <a href="/marketing/pages/auth/login.php" class="btn btn-primary">Please Login First</a>
+            <?php endif; ?>
 
         </form>
 
@@ -48,7 +66,7 @@
                 <div class="contact-card">
 
                     <div class="card-icon">
-                        <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                        <ion-icon name="mail-outline"></ion-icon>
                     </div>
 
                     <div class="card-content">
@@ -67,7 +85,7 @@
                 <div class="contact-card">
 
                     <div class="card-icon">
-                        <ion-icon name="map-outline" aria-hidden="true"></ion-icon>
+                        <ion-icon name="map-outline"></ion-icon>
                     </div>
 
                     <div class="card-content">
@@ -88,7 +106,7 @@
                 <div class="contact-card">
 
                     <div class="card-icon">
-                        <ion-icon name="headset-outline" aria-hidden="true"></ion-icon>
+                        <ion-icon name="headset-outline"></ion-icon>
                     </div>
 
                     <div class="card-content">
